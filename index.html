@@ -18,6 +18,23 @@
             top: 20px;
             right: 20px;
         }
+
+        /* One prose measure for the whole page: the container runs ~1140px on
+           desktop, which renders intro/step copy at ~131 chars per line. */
+        body.container {
+            max-width: 70ch;
+        }
+
+        /* Air above headings (more than the 0.5rem below) so sections read
+           as groups instead of one undifferentiated column. */
+        h2, h3 {
+            margin-top: 2rem;
+        }
+
+        /* Avoid a single orphaned word on the last wrapped line. */
+        p, li {
+            text-wrap: pretty;
+        }
     </style>
 </head>
 <body class="container mt-5">
