@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>PeerAuth</title>
+    <meta name="description" content="Set up shared TOTP codes between any two people, entirely in your browser, to verify each other's identity over phone or video calls.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -80,7 +81,8 @@
         <input type="text" class="form-control" id="name2" required maxlength="50">
     </div>
 
-    <button id="generateBtn" class="btn btn-primary mb-4" disabled data-i18n="generate">Generate</button>
+    <button id="generateBtn" class="btn btn-primary mb-2" disabled data-i18n="generate" aria-describedby="generateHint">Generate</button>
+    <p class="form-text" id="generateHint" data-i18n="generateHint">Enter both names to enable Generate.</p>
 
     <div id="cdnError" class="alert alert-danger" role="alert" style="display: none;" data-i18n="cdnError"></div>
 
@@ -141,6 +143,7 @@
                 'languageLabel': 'Language',
                 'qrAlt': 'PeerAuth setup QR code for {name}',
                 'cdnError': 'Required components could not be loaded from the CDN. Check your internet connection and reload the page.',
+                'generateHint': 'Enter both names to enable Generate.',
             },
             'zh-CN': {
                 'whatIsThis': '这是什么？',
@@ -169,6 +172,7 @@
                 'languageLabel': '语言',
                 'qrAlt': '{name} 的 PeerAuth 设置二维码',
                 'cdnError': '无法从 CDN 加载所需组件。请检查网络连接后重新加载页面。',
+                'generateHint': '输入双方名字后即可点击“生成”。',
             },
             'de': {
                 'whatIsThis': 'Was ist das hier?',
@@ -197,6 +201,7 @@
                 'languageLabel': 'Sprache',
                 'qrAlt': 'PeerAuth-Einrichtungs-QR-Code für {name}',
                 'cdnError': 'Erforderliche Komponenten konnten nicht vom CDN geladen werden. Bitte prüfe deine Internetverbindung und lade die Seite neu.',
+                'generateHint': 'Gib beide Namen ein, um „Erzeugen“ zu aktivieren.',
             },
         };
 
@@ -339,8 +344,9 @@
             });
             qrcode2node.querySelector('img').setAttribute('alt', qrAltTemplate.replace('{name}', name2));
 
-            // Smooth scroll to qrcode1 with animation
-            document.getElementById('qrSection').scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+            // Smooth scroll to qrcode1, honoring reduced-motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.getElementById('qrSection').scrollIntoView({behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start', inline: 'nearest'});
 
             updateOtpDisplay();
             interval = setInterval(updateOtpDisplay, 1000);
