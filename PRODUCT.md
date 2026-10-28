@@ -38,7 +38,8 @@ Repurposes standards-based TOTP — the same secret/QR/app mechanism people alre
 ## Brand Commitments
 
 - Name: "PeerAuth"; used as the TOTP issuer string.
-- No logo, wordmark, or other visual assets exist yet.
+- Icon (chosen 2026-10-28, variant A): QR finder squares + white checkmark on a #0d6efd rounded square. Master SVG at `img/icon.svg`; simplified 16 px variant at `design-candidates/peerauth-icon-a-16.svg`; favicon PNGs at `img/favicon-32.png`, `img/favicon-16.png`, `img/apple-touch-icon.png`.
+- No wordmark exists yet ("PeerAuth" is set in Bootstrap's default type).
 - k_sze describes PeerAuth as a personal project (not a commercial product) and notes the app itself does not use AI.
 
 ## Evidence on Hand
